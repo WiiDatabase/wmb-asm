@@ -53,15 +53,6 @@ char *basedir
 	if(retval<0)return retval;
 	#endif
 
-	#ifdef HW_RVL
-	retval = ES_GetTitleID(&wc24_titleid);
-	if(retval<0)
-	{
-		printf("ES_GetTitleID returned %d\n", retval);
-		//return retval;
-	}
-	#endif
-
 	memset(wc24_nanddumpbasedir, 0, 256);
 	#ifndef HW_RVL
 	strncpy(wc24_nanddumpbasedir, basedir, 255);

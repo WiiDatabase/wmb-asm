@@ -57,18 +57,9 @@ u32 CalcMailCfgChecksum(void* buffer, u32 length)
 s32 WC24Mail_Init()
 {
 	s32 retval;
-	u32 cbk_checksum;
 	wc24mail_nwc24msgcfg = memalign(32, sizeof(NWC24MsgCfg));
 	if(wc24mail_nwc24msgcfg==NULL)return ENOMEM;
 	memset(wc24mail_nwc24msgcfg, 0, sizeof(NWC24MsgCfg));
-
-	retval = __WC24Mail_CfgRead(0);
-	if(retval<0)
-	{
-		WC24Mail_Shutdown();
-		return retval;
-	}
-	cbk_checksum = wc24mail_nwc24msgcfg->checksum;
 	
 	retval = __WC24Mail_CfgRead(1);
 	if(retval<0)
@@ -77,7 +68,6 @@ s32 WC24Mail_Init()
 		return retval;
 	}
 
-	if(cbk_checksum!=wc24mail_nwc24msgcfg->checksum)return WC24MAIL_EMISMATCHSUM;
 	retval = __WC24Mail_FlInit();
 	if(retval<0)return retval;
 

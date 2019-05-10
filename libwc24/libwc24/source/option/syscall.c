@@ -10,12 +10,12 @@
 
 
 #if _FS_REENTRANT
-/*------------------------------------------------------------------------*/
-/* Create a Synchronization Object
-/*------------------------------------------------------------------------*/
-/* This function is called in fvff_mount function to create a new
-/  synchronization object, such as semaphore and mutex. When a FALSE is
-/  returned, the fvff_mount function fails with FR_INT_ERR.
+/*------------------------------------------------------------------------
+/ Create a Synchronization Object
+/------------------------------------------------------------------------
+/ This function is called in fvff_mount function to create a new
+/ synchronization object, such as semaphore and mutex. When a FALSE is
+/ returned, the fvff_mount function fails with FR_INT_ERR.
 */
 
 BOOL ffvff_cre_syncobj (	/* TRUE:Function succeeded, FALSE:Could not create due to any error */
@@ -42,12 +42,12 @@ BOOL ffvff_cre_syncobj (	/* TRUE:Function succeeded, FALSE:Could not create due 
 
 
 
-/*------------------------------------------------------------------------*/
-/* Delete a Synchronization Object                                        */
-/*------------------------------------------------------------------------*/
-/* This function is called in fvff_mount function to delete a synchronization
-/  object that created with ffvff_cre_syncobj function. When a FALSE is
-/  returned, the fvff_mount function fails with FR_INT_ERR.
+/*------------------------------------------------------------------------
+/ Delete a Synchronization Object
+/------------------------------------------------------------------------
+/ This function is called in fvff_mount function to delete a synchronization
+/ object that created with ffvff_cre_syncobj function. When a FALSE is
+/ returned, the fvff_mount function fails with FR_INT_ERR.
 */
 
 BOOL ffvff_del_syncobj (	/* TRUE:Function succeeded, FALSE:Could not delete due to any error */
@@ -56,25 +56,25 @@ BOOL ffvff_del_syncobj (	/* TRUE:Function succeeded, FALSE:Could not delete due 
 {
 	BOOL ret;
 
-	ret = CloseHandle(sobj);	/* Win32 *
+	ret = CloseHandle(sobj);	/// Win32
 
-//	ret = TRUE;					/* uITRON (nothing to do) *
+//	ret = TRUE;					// uITRON (nothing to do)
 
-//	OSMutexDel(sobj, OS_DEL_ALWAYS, &err);		/* uC/OS-II */
+//	OSMutexDel(sobj, OS_DEL_ALWAYS, &err);		// uC/OS-II
 //	ret = (err == OS_NO_ERR) ? TRUE : FALSE;
 
-//	ret = TRUE;					/* FreeRTOS (nothing to do) */
+//	ret = TRUE;					// FreeRTOS (nothing to do)
 
 	return ret;
 }
 
 
 
-/*------------------------------------------------------------------------*/
-/* Request Grant to Access the Volume                                     */
-/*------------------------------------------------------------------------*/
-/* This function is called on entering file functions to lock the volume.
-/  When a FALSE is returned, the file function fails with FR_TIMEOUT.
+/*------------------------------------------------------------------------
+/ Request Grant to Access the Volume
+/------------------------------------------------------------------------
+/ This function is called on entering file functions to lock the volume.
+/ When a FALSE is returned, the file function fails with FR_TIMEOUT.
 */
 
 BOOL ffvff_req_grant (	/* TRUE:Got a grant to access the volume, FALSE:Could not get a grant */
@@ -97,10 +97,10 @@ BOOL ffvff_req_grant (	/* TRUE:Got a grant to access the volume, FALSE:Could not
 
 
 
-/*------------------------------------------------------------------------*/
-/* Release Grant to Access the Volume                                     */
-/*------------------------------------------------------------------------*/
-/* This function is called on leaving file functions to unlock the volume.
+/*------------------------------------------------------------------------
+/ Release Grant to Access the Volume
+/------------------------------------------------------------------------
+/ This function is called on leaving file functions to unlock the volume.
 */
 
 void ffvff_rel_grant (
@@ -123,10 +123,10 @@ void ffvff_rel_grant (
 
 
 #if _USE_LFN == 3	/* LFN with a working buffer on the heap */
-/*------------------------------------------------------------------------*/
-/* Allocate a memory block                                                */
-/*------------------------------------------------------------------------*/
-/* If a NULL is returned, the file function fails with FR_NOT_ENOUGH_CORE.
+/*------------------------------------------------------------------------
+/ Allocate a memory block
+/------------------------------------------------------------------------
+/ If a NULL is returned, the file function fails with FR_NOT_ENOUGH_CORE.
 */
 
 void* ffvff_memalloc (	/* Returns pointer to the allocated memory block */
@@ -137,9 +137,9 @@ void* ffvff_memalloc (	/* Returns pointer to the allocated memory block */
 }
 
 
-/*------------------------------------------------------------------------*/
-/* Free a memory block                                                    */
-/*------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------
+/ Free a memory block
+/------------------------------------------------------------------------*/
 
 void ffvff_memfree(
 	void* mblock	/* Pointer to the memory block to free */
